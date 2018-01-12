@@ -1,0 +1,29 @@
+version: "3"
+services:
+  LokDabMUX:
+    image: LokDabMUX
+    build:
+      context: ./
+      dockerfile: https://raw.githubusercontent.com/pepisp/dabmod_docker/master/Dockerfile_DabMux
+      image:LokDabMUX
+      volumes:
+        -./muxconf/:/usr/odrdab
+      ports:
+        - 8181:8181
+      restart: always
+      networks:
+      lokdabmux_net:
+        ipv4_address: 172.100.100.1
+
+
+
+
+
+
+networks:
+  lokdabmux_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.100.100.0/24

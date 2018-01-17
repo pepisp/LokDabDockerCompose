@@ -19,12 +19,12 @@ AudioEnc1:
       build:
         context: ./
         dockerfile: https://raw.githubusercontent.com/pepisp/dabmod_docker/master/Dockerfile_DabAudioEnc
-        image:lokdabenc    
+        image:lokdabenc
       restart: always
       networks:
         lokdabmux_net:
           ipv4_address: 172.100.100.2
-
+      command: odr-audioenc -v http://radioluz.pwr.edu.pl:8000/luz_hifi.m3u -o tcp://LokDabMux:9001 -l -r 48000 -b 96 -VVV
 
 
 

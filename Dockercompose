@@ -7,7 +7,7 @@ services:
       dockerfile: https://raw.githubusercontent.com/pepisp/dabmod_docker/master/Dockerfile_DabMux
       image:lokdabmux
     volumes:
-      -./muxconf/:/usr/odrdab
+      - ~/muxconf/:/usr/odrdab
     ports:
       - 8181:8181
     restart: always

@@ -4,11 +4,11 @@ services:
     image: lokdabmux
     build:
       context: ./
-      dockerfile: https://raw.githubusercontent.com/pepisp/dabmod_docker/master/Dockerfile_DabMux
+      dockerfile: Dockerfile_DabMux
     volumes:
       - ~/muxconf:/usr/odrdab
     ports:
-      - 8282:8181
+      - 8181:8181
     restart: always
     networks:
       lokdabmux_net:
@@ -17,7 +17,7 @@ services:
     image: lokdabenc
     build:
       context: ./
-      dockerfile: https://raw.githubusercontent.com/pepisp/dabmod_docker/master/Dockerfile_DabAudioEnc
+      dockerfile: Dockerfile_DabAudioEnc
     restart: always
     networks:
       lokdabmux_net:

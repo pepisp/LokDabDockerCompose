@@ -12,7 +12,37 @@ services:
     restart: always
     networks:
       lokdabmux_net:
-        ipv4_address: 172.100.100.2
+        ipv4_address: 172.200.200.2
+  AudioEnc1:
+    image: lokdabenc
+    build:
+      context: ./
+      dockerfile: https://raw.githubusercontent.com/pepisp/dabmod_docker/master/Dockerfile_DabAudioEnc
+    restart: always
+    networks:
+      lokdabmux_net:
+        ipv4_address: 172.200.200.3
+    command: odr-audioenc -v http://radioluz.pwr.edu.pl:8000/luz_hifi -o tcp://172.200.200.2:9001 -l -r 48000 -b 96 -VVV
+  AudioEnc2:
+    image: lokdabenc
+    build:
+      context: ./
+      dockerfile: https://raw.githubusercontent.com/pepisp/dabmod_docker/master/Dockerfile_DabAudioEnc
+    restart: always
+    networks:
+      lokdabmux_net:
+        ipv4_address: 172.200.200.4
+    command: odr-audioenc -v http://stream4.nadaje.com:9220/ram -o tcp://172.200.200.2:9002 -l -r 48000 -b 96 -VVV
+  AudioEnc3:
+    image: lokdabenc
+    build:
+      context: ./
+      dockerfile: https://raw.githubusercontent.com/pepisp/dabmod_docker/master/Dockerfile_DabAudioEnc
+    restart: always
+    networks:
+      lokdabmux_net:
+        ipv4_address: 172.200.200.5
+    command: odr-audioenc -v http://stream2.nadaje.com:9248/prw.aac -o tcp://172.200.200.2:9003 -l -r 48000 -b 96 -VVV
   AudioEnc4:
     image: lokdabenc
     build:
@@ -21,10 +51,18 @@ services:
     restart: always
     networks:
       lokdabmux_net:
-        ipv4_address: 172.100.100.5
-    command: odr-audioenc -v http://stream4.nadaje.com:9220/ram -o tcp://172.200.200.2:9004 -l -r 48000 -b 96 -VVV
-
-
+        ipv4_address: 172.200.200.6
+    command: odr-audioenc -v http://stream2.nadaje.com:9228/ram.aac -o tcp://172.200.200.2:9004 -l -r 48000 -b 96 -VVV
+  AudioEnc5:
+    image: lokdabenc
+    build:
+      context: ./
+      dockerfile: https://raw.githubusercontent.com/pepisp/dabmod_docker/master/Dockerfile_DabAudioEnc
+    restart: always
+    networks:
+      lokdabmux_net:
+        ipv4_address: 172.200.200.7
+    command: odr-audioenc -v http://stream2.nadaje.com:9238/rwkultura.aac -o tcp://172.200.200.2:9005 -l -r 48000 -b 96 -VVV
 
 
 
@@ -34,4 +72,4 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 172.100.100.0/24
+        - subnet: 172.200.200.0/24

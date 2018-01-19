@@ -5,26 +5,24 @@ services:
     build:
       context: ./
       dockerfile: https://raw.githubusercontent.com/pepisp/dabmod_docker/master/Dockerfile_DabMux
-      image:lokdabmux
     volumes:
-      - ~/muxconf/:/usr/odrdab
+      - ~/muxconf:/usr/odrdab
     ports:
-      - 8181:8181
+      - 8282:8181
     restart: always
     networks:
       lokdabmux_net:
-        ipv4_address: 172.100.100.1
-AudioEnc1:
-      image: lokdabenc
-      build:
-        context: ./
-        dockerfile: https://raw.githubusercontent.com/pepisp/dabmod_docker/master/Dockerfile_DabAudioEnc
-        image:lokdabenc
-      restart: always
-      networks:
-        lokdabmux_net:
-          ipv4_address: 172.100.100.2
-      command: odr-audioenc -v http://radioluz.pwr.edu.pl:8000/luz_hifi.m3u -o tcp://LokDabMux:9001 -l -r 48000 -b 96 -VVV
+        ipv4_address: 172.100.100.2
+  AudioEnc4:
+    image: lokdabenc
+    build:
+      context: ./
+      dockerfile: https://raw.githubusercontent.com/pepisp/dabmod_docker/master/Dockerfile_DabAudioEnc
+    restart: always
+    networks:
+      lokdabmux_net:
+        ipv4_address: 172.100.100.5
+    command: odr-audioenc -v http://stream4.nadaje.com:9220/ram -o tcp://LokDabMux:9004 -l -r 48000 -b 96 -VVV
 
 
 

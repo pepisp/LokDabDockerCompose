@@ -29,7 +29,7 @@ services:
     image: lokdabenc
     build:
       context: ./
-      ddockerfile: Dockerfile_DabAudioEnc
+      dockerfile: Dockerfile_DabAudioEnc
     restart: always
     networks:
       lokdabmux_net:

@@ -5,6 +5,8 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile_DabMux
+    environment:
+      - TZ=Europe/Warsaw  
     volumes:
       - /home/ldadmin/muxconf:/usr/odrdab
     ports:

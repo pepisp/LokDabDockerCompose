@@ -56,7 +56,7 @@ services:
         ipv4_address: 172.200.200.6
     volumes:
       - /home/ldadmin/pad_data/ram:/usr/odrdab/pad_data
-    command: ["sh","-c","odr-padenc -o pad.fifo -t pad_data/dls.txt -d pad_data/slides -p 58 & odr-audioenc -v http://stream2.nadaje.com:9228/ram.aac -o tcp://172.200.200.2:9004 -l -r 48000 -b 96 -VVV"]
+    command: ["sh","-c","odr-padenc -o pad.fifo -t pad_data/dls.txt -d pad_data/slides -p 58 & odr-audioenc -v http://stream2.nadaje.com:9228/ram.aac -o tcp://172.200.200.2:9004 -l -p 58 -P pad.fifo -b 96 -VVV"]
   AudioEnc5:
     image: lokdabenc
     build:

@@ -24,7 +24,11 @@ services:
     networks:
       lokdabmux_net:
         ipv4_address: 172.200.200.3
-    command: odr-audioenc -v http://radioluz.pwr.edu.pl:8000/luz_hifi -o tcp://172.200.200.2:9001 -l -r 48000 -b 96 -VVV
+    volumes:
+      - /home/ldadmin/pad_data/luz:/usr/odrdab/pad_data
+    command: ["sh","-c","odr-padenc -o pad1.fifo -t pad_data/dls.txt -d pad_data/slides -p 58 & odr-audioenc -v http://radioluz.pwr.edu.pl:8000/luz_hifi -o tcp://172.200.200.2:9001 -l -p 58 -P pad1.fifo -b 96 -VVV"]
+
+    #command: odr-audioenc -v http://radioluz.pwr.edu.pl:8000/luz_hifi -o tcp://172.200.200.2:9001 -l -r 48000 -b 96 -VVV
   AudioEnc2:
     image: lokdabenc
     build:
@@ -34,7 +38,11 @@ services:
     networks:
       lokdabmux_net:
         ipv4_address: 172.200.200.4
-    command: odr-audioenc -v http://sluchaj.radiorodzina.pl:80/RadioRodzinaWroclawLIVE.mp3 -o tcp://172.200.200.2:9002 -l -r 48000 -b 96 -VVV
+    volumes:
+      - /home/ldadmin/pad_data/rodzina:/usr/odrdab/pad_data
+    command: ["sh","-c","odr-padenc -o pad2.fifo -t pad_data/dls.txt -d pad_data/slides -p 58 & odr-audioenc -v http://sluchaj.radiorodzina.pl:80/RadioRodzinaWroclawLIVE.mp3 -o tcp://172.200.200.2:9002 -l -p 58 -P pad2.fifo -b 96 -VVV"]
+
+    #command: odr-audioenc -v http://sluchaj.radiorodzina.pl:80/RadioRodzinaWroclawLIVE.mp3 -o tcp://172.200.200.2:9002 -l -r 48000 -b 96 -VVV
   AudioEnc3:
     image: lokdabenc
     build:
@@ -46,8 +54,7 @@ services:
         ipv4_address: 172.200.200.5
     volumes:
       - /home/ldadmin/pad_data/wroc:/usr/odrdab/pad_data
-    #command: ["sh","-c","odr-padenc -o pad1.fifo -t pad_data/dls.txt -d pad_data/slides -p 58 & odr-audioenc -v http://stream2.nadaje.com:9248/prw.aac -o tcp://172.200.200.2:9003 -l -p 58 -P pad1.fifo -b 96 -VVV"]
-    command: ["sh","-c","odr-padenc -o pad1.fifo -t pad_data/dls.txt -d pad_data/slides -p 58 & odr-audioenc -v http://194.181.35.226:8550 -o tcp://172.200.200.2:9003 -l -p 58 -P pad1.fifo -b 96 -VVV"]
+    command: ["sh","-c","odr-padenc -o pad3.fifo -t pad_data/dls.txt -d pad_data/slides -p 58 & odr-audioenc -v http://194.181.35.226:8550 -o tcp://172.200.200.2:9003 -l -p 58 -P pad3.fifo -b 96 -VVV"]
   AudioEnc4:
     image: lokdabenc
     build:
@@ -59,8 +66,7 @@ services:
         ipv4_address: 172.200.200.6
     volumes:
       - /home/ldadmin/pad_data/ram:/usr/odrdab/pad_data
-    #command: ["sh","-c","odr-padenc -o pad2.fifo -t pad_data/dls.txt -d pad_data/slides -p 58 & odr-audioenc -v http://stream2.nadaje.com:9228/ram.aac -o tcp://172.200.200.2:9004 -l -p 58 -P pad2.fifo -b 96 -VVV"]
-    command: ["sh","-c","odr-padenc -o pad2.fifo -t pad_data/dls.txt -d pad_data/slides -p 58 & odr-audioenc -v http://194.181.35.226:8551 -o tcp://172.200.200.2:9004 -l -p 58 -P pad2.fifo -b 96 -VVV"]
+    command: ["sh","-c","odr-padenc -o pad4.fifo -t pad_data/dls.txt -d pad_data/slides -p 58 & odr-audioenc -v http://194.181.35.226:8551 -o tcp://172.200.200.2:9004 -l -p 58 -P pad4.fifo -b 96 -VVV"]
   AudioEnc5:
     image: lokdabenc
     build:
@@ -72,8 +78,7 @@ services:
         ipv4_address: 172.200.200.7
     volumes:
       - /home/ldadmin/pad_data/kultura:/usr/odrdab/pad_data
-    #command: ["sh","-c","odr-padenc -o pad3.fifo -t pad_data/dls.txt -d pad_data/slides -p 58 & odr-audioenc -v http://stream2.nadaje.com:9238/rwkultura.aac -o tcp://172.200.200.2:9005 -l -p 58 -P pad3.fifo -b 96 -VVV"]
-    command: ["sh","-c","odr-padenc -o pad3.fifo -t pad_data/dls.txt -d pad_data/slides -p 58 & odr-audioenc -v http://194.181.35.226:8552 -o tcp://172.200.200.2:9005 -l -p 58 -P pad3.fifo -b 96 -VVV"]
+    command: ["sh","-c","odr-padenc -o pad5.fifo -t pad_data/dls.txt -d pad_data/slides -p 58 & odr-audioenc -v http://194.181.35.226:8552 -o tcp://172.200.200.2:9005 -l -p 58 -P pad5.fifo -b 96 -VVV"]
 
 
 
